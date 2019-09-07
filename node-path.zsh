@@ -3,12 +3,13 @@
 CURRENT=""
 
 function chpwd {
-  CLEAN_PATH=$PATH
-  if [[ -z "$CURRENT" ]]; then
+  if [[ -z $CURRENT ]]; then
+    CLEAN_PATH="$PATH"
+  else
     CLEAN_PATH=$(echo $PATH | sed -E -e "s|$CURRENT||")
   fi
   CURRENT="$(npm bin):"
-  echo "$CURRENT$PATH"
+  export PATH="$CURRENT$CLEAN_PATH"
 }
 
 chpwd
